@@ -17,7 +17,7 @@ const connection = process.env.CONNECTION;
 
 app.use(bodyParser.json());
 app.use(cors({
-  origin:"https://maccess001.onrender.com"
+  origin:"https://maccess-web01.onrender.com/"
 }));
 
 //Import Models
