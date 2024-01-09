@@ -499,7 +499,7 @@ app.get('/images/:imageId', async (req, res) => {
 
 const start = async()=>{
     try{
-        await mongoose.connect(connection)
+        await mongoose.connect('mongodb+srv://faisalhasantanjil01:JmY3LaQPTMd9kDvF@ecommerce.qii2kth.mongodb.net/?retryWrites=true&w=majority')
         app.listen(port, ()=>{
             console.log(`Server is running on port ${port}`);
         })
