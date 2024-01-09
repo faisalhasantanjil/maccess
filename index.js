@@ -11,7 +11,7 @@ const fs = require('fs');
 require('dotenv').config()
 
 const app= express()
-const port= process.env.PORT || 5000
+const port= process.env.PORT;
 const connection = process.env.CONNECTION;
 
 
@@ -372,8 +372,8 @@ app.delete('/sunglass/:id', async(req,res) =>{
 
 //POST a ORDER
 
-
-app.post('/order', async(req, res)=>{
+/*
+app.post("/order", async(req, res)=>{
     res.send("order is trying to make place");
   
     for (const item of req.body.cartItems){   
@@ -425,6 +425,41 @@ app.post('/order', async(req, res)=>{
         status:'pending',
         email,
         address,
+      }))
+      await OrderModel.insertMany(order_placed);
+      console.log("Order placed successfully");
+      res.json({ message: 'Orders created successfully' });
+      
+    }catch(error){
+      console.error(error);
+      res.status(500).json({ message: 'Error creating orders' });
+    }
+  })*/
+
+  function getModelByCategory(category) {
+    switch (category) {
+      case 'watch': return WatchModel;
+      case 'wallet': return WalletModel;
+      default: return SunglassModel;
+    }
+  }
+
+  app.post("/order", async (req, res) => {
+  
+    try{
+
+      for (const item of req.body.cartItems) {
+        const model = getModelByCategory(item.category);
+        await model.findByIdAndUpdate(item.product_id, {
+          $inc: { quantity: -item.quantity }
+        }, { new: true });
+      }
+
+      const order_placed= req.body.cartItems.map((item)=>({
+        ...item,
+        status:'pending',
+        email: req.body.email,
+        address: req.body.address,
       }))
       await OrderModel.insertMany(order_placed);
       console.log("Order placed successfully");
