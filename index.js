@@ -16,7 +16,9 @@ const connection = process.env.CONNECTION;
 
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+  origin:["https://maccess001.onrender.com"],
+}));
 
 //Import Models
 const WatchModel = require('./models/watch');
