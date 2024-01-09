@@ -17,7 +17,7 @@ const connection = process.env.CONNECTION;
 
 app.use(bodyParser.json());
 app.use(cors({
-  origin:["https://maccess001.onrender.com","http://127.0.0.1:3000"],
+  origin:["https://maccess001.onrender.com"],
 }));
 
 //Import Models
@@ -374,6 +374,7 @@ app.delete('/sunglass/:id', async(req,res) =>{
 
 
 app.post('/order', async(req, res)=>{
+    res.send("order is trying to make place");
   
     for (const item of req.body.cartItems){   
       if (item.category ==='watch'){
