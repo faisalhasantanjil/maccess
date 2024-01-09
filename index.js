@@ -372,6 +372,7 @@ app.delete('/sunglass/:id', async(req,res) =>{
 
 //POST a ORDER
 
+
 app.post('/order', async(req, res)=>{
   
     for (const item of req.body.cartItems){   
@@ -382,6 +383,7 @@ app.post('/order', async(req, res)=>{
                 $inc: { quantity: -item.quantity } //  $inc for atomic quantity updates
               },
               { new: true });
+              console.log("order quantity removing from watch");
           }catch(error) {
             console.log(error);
             res.send(error)
@@ -394,6 +396,7 @@ app.post('/order', async(req, res)=>{
                 $inc: { quantity: -item.quantity } //  $inc for atomic quantity updates
               },
               { new: true });
+              console.log("order quantity removing from watch");
           }catch(error) {
             console.log(error);
             res.send(error)
@@ -406,6 +409,7 @@ app.post('/order', async(req, res)=>{
                 $inc: { quantity: -item.quantity } //  $inc for atomic quantity updates
                 },
                 { new: true });
+                console.log("order quantity removing from watch");
             }catch(error) {
             console.log(error);
             res.send(error)
